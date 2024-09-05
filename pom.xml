@@ -23,22 +23,27 @@
                 <version>0.0.8</version>
                 <configuration>
                     <mainClass>your.package.SearchTicketApplication</mainClass>
-                    <jlink>
-                        <jlinkOptions>
-                            <option>--add-modules</option>
-                            <option>javafx.controls,javafx.fxml</option>
-                            <option>--strip-debug</option>
-                            <option>--no-man-pages</option>
-                            <option>--no-header-files</option>
-                            <option>--compress=2</option>
-                        </jlinkOptions>
-                    </jlink>
                 </configuration>
+            </plugin>
+
+            <!-- Separate jlink plugin configuration -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jlink-plugin</artifactId>
+                <version>3.0.0</version>
                 <executions>
                     <execution>
+                        <id>create-runtime-image</id>
                         <goals>
                             <goal>jlink</goal>
                         </goals>
+                        <configuration>
+                            <addModules>javafx.controls,javafx.fxml</addModules>
+                            <stripDebug>true</stripDebug>
+                            <noManPages>true</noManPages>
+                            <noHeaderFiles>true</noHeaderFiles>
+                            <compress>2</compress>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
