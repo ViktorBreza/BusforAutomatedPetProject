@@ -31,8 +31,7 @@ public class BaseTest {
             logger.info("Browser launched: {}", browser);
 
             // Perform login action
-            // TODO uncomment after fixing the login issue
-            // login();
+            login();
         } catch (Exception e) {
             logger.error("Error during setup: {}", e.getMessage());
             throw new RuntimeException("Failed to initialize the test", e);
@@ -54,9 +53,11 @@ public class BaseTest {
         try {
             driver.get("https://busfor.ua/");
             logger.info("Navigated to busfor.ua");
-
+            //TODO uncomment after fixing login issues
+            /*// Click on 'Особистий кабінет'
+            WebElement loginButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[contains(text(), 'Особистий кабінет')]")));
             // Click on 'Особистий кабінет'
-            WebElement loginButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[contains(text(),'Особистий кабінет')]")));
+           /* WebElement loginButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[contains(text(),'Особистий кабінет')]")));
             loginButton.click();
             logger.info("Clicked on 'Особистий кабінет'");
 
@@ -68,7 +69,7 @@ public class BaseTest {
             // Click on the 'Send code' button
             WebElement sendCodeButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@role='button']")));
             sendCodeButton.click();
-            logger.info("Clicked on 'Send code' button");
+            logger.info("Clicked on 'Send code' button");*/
 
         } catch (Exception e) {
             logger.error("Error during login: {}", e.getMessage());
