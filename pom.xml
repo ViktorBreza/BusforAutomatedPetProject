@@ -12,53 +12,112 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <javafx.version>20.0.1</javafx.version>
     </properties>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>0.0.8</version>
+                <configuration>
+                    <mainClass>your.package.SearchTicketApplication</mainClass>
+                    <jlink>
+                        <jlinkOptions>
+                            <option>--add-modules</option>
+                            <option>javafx.controls,javafx.fxml</option>
+                            <option>--strip-debug</option>
+                            <option>--no-man-pages</option>
+                            <option>--no-header-files</option>
+                            <option>--compress=2</option>
+                        </jlinkOptions>
+                    </jlink>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>jlink</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
+        <!-- WebDriverManager for managing browser drivers -->
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
             <version>5.9.2</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
+        <!-- Selenium Java for browser automation -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
             <version>4.24.0</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.testng/testng -->
+
+        <!-- TestNG for test framework -->
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>7.10.2</version>
             <scope>test</scope>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.assertj/assertj-core -->
+
+        <!-- AssertJ for fluent assertions -->
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
             <version>3.26.3</version>
             <scope>test</scope>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/com.twilio.sdk/twilio -->
+
+        <!-- Twilio SDK for SMS and voice services -->
         <dependency>
             <groupId>com.twilio.sdk</groupId>
             <artifactId>twilio</artifactId>
             <version>10.4.2</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+
+        <!-- SLF4J API for logging -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>2.1.0-alpha1</version>
         </dependency>
+
+        <!-- Logback Classic for SLF4J -->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>1.4.12</version>
         </dependency>
 
+        <!-- JavaFX Controls and FXML -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
     </dependencies>
+
+    <repositories>
+        <repository>
+            <id>openjfx-releases</id>
+            <url>https://openjfx.io/maven</url>
+        </repository>
+        <repository>
+            <id>central</id>
+            <url>https://repo.maven.apache.org/maven2</url>
+        </repository>
+    </repositories>
 </project>

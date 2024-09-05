@@ -58,7 +58,7 @@ public class BasePage {
      * @param locator By locator for the element.
      * @return The text of the element.
      */
-    protected String getElementText(By locator) {
+    public String getElementText(By locator) {
         WebElement element = waitForElementToBeVisible(locator);
         return element.getText();
     }
