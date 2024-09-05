@@ -1,0 +1,110 @@
+### 1. **Search for Available Routes**
+
+- **Title**: Search for available routes with specified origin and destination.
+- **Steps**:
+    1. Open the homepage.
+    2. Select the departure city.
+    3. Select the destination city.
+    4. Choose a date.
+    5. Click the "Find Tickets" button.
+- **Expected Result**: A list of available routes is displayed.
+
+### 2. **Filter Search Results**
+
+- **Title**: Filter search results by price, carrier, and departure time.
+- **Steps**:
+    1. Perform a search for routes.
+    2. Apply the "Price" filter to narrow down the price range.
+    3. Select one or more carriers.
+    4. Filter by departure time.
+- **Expected Result**: The list of routes is updated according to the selected filters.
+
+### 3. **Check Route Details**
+
+- **Title**: View route details.
+- **Steps**:
+    1. Perform a route search.
+    2. Select any route from the list.
+    3. Verify information such as departure, arrival, duration, price, and map location.
+- **Expected Result**: All route details are displayed correctly.
+
+### 4. **Add Ticket to Cart**
+
+- **Title**: Add a ticket to the booking cart.
+- **Steps**:
+    1. Perform a route search.
+    2. Select a route and click "Buy Ticket."
+    3. Enter passenger details.
+    4. Click "Continue."
+- **Expected Result**: The ticket is successfully added to the cart for payment.
+
+### 5. **Login via Phone Number**
+
+- **Title**: Log in using a mobile phone number.
+- **Steps**:
+    1. Click on the "Personal Account" button.
+    2. Enter the mobile phone number.
+    3. Click "Get Code."
+    4. Enter the SMS code received.
+- **Expected Result**: The user is successfully logged in, and the personal account is displayed.
+
+### 6. **Verify Personal Account Access**
+
+- **Title**: Access the personal account after logging in.
+- **Steps**:
+    1. Log in via phone number.
+    2. Verify that the personal account page displays past trips, orders, and profile information.
+- **Expected Result**: Profile data is displayed correctly.
+
+### 7. **Check Ticket Price Consistency**
+
+- **Title**: Verify the ticket price after adding to the cart.
+- **Steps**:
+    1. Perform a route search.
+    2. Add a ticket to the cart.
+    3. Check if the ticket price in the cart matches the search result price.
+- **Expected Result**: The price in the cart matches the initial search result.
+
+### 8. **Cancel Ticket Booking**
+
+- **Title**: Cancel a booked ticket.
+- **Steps**:
+    1. Log in to the personal account.
+    2. Select an existing booking.
+    3. Click "Cancel Booking."
+    4. Confirm cancellation.
+- **Expected Result**: The booking is successfully canceled, and a confirmation message is shown.
+
+### 9. **Complete Ticket Payment**
+
+- **Title**: Pay for a ticket through the payment system.
+- **Steps**:
+    1. Add a ticket to the cart.
+    2. Proceed to payment.
+    3. Choose a payment method (credit card, Google Pay, Apple Pay).
+    4. Enter the necessary payment details and confirm the payment.
+- **Expected Result**: Payment is successfully processed, and the user receives a purchase confirmation.
+
+### 10. **Check 'About Us' Page**
+
+- **Title**: Verify the 'About Us' page content.
+- **Steps**:
+    1. Navigate to the "About Us" page (from footer or main menu).
+    2. Check that all elements, such as text, contacts, and company information, are displayed.
+- **Expected Result**: The page loads correctly and displays all elements.
+
+### 11. **Cross-Browser Testing**
+
+- **Title**: Verify site functionality in different browsers.
+- **Steps**:
+    1. Open the site in Chrome.
+    2. Repeat the same actions in other browsers (Firefox, Safari, Edge).
+- **Expected Result**: The site functions and displays correctly in all browsers.
+
+### 12. **Responsive Design Testing**
+
+- **Title**: Test the site’s responsiveness on mobile devices.
+- **Steps**:
+    1. Open the site on a mobile device or emulate a mobile screen in the browser.
+    2. Test key functionalities (search for routes, booking, login).
+- **Expected Result**: The site displays and functions correctly on mobile devices.

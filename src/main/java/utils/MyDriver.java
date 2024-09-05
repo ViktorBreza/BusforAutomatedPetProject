@@ -4,55 +4,95 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Supplier;
 
 public class MyDriver {
-    private static MyDriver instance = null;
+    private static final Logger logger = LoggerFactory.getLogger(MyDriver.class); // SLF4J Logger
+
+    private static volatile MyDriver instance = null;
     private final WebDriver driver;
+    private final WebDriverWait wait;
 
-    // Enum to represent different browsers
-    public enum BrowserType {
-        CHROME {
-            @Override
-            public WebDriver createDriver() {
-                WebDriverManager.chromedriver().setup();
-                return new ChromeDriver();
-            }
-        },
-        FIREFOX {
-            @Override
-            public WebDriver createDriver() {
-                WebDriverManager.firefoxdriver().setup();
-                return new FirefoxDriver();
-            }
-        };
+    private static final Map<String, Supplier<WebDriver>> driverMap = new HashMap<>();
 
-        public abstract WebDriver createDriver();
+    static {
+        driverMap.put("chrome", () -> {
+            WebDriverManager.chromedriver().setup();
+            return new ChromeDriver();
+        });
+        driverMap.put("firefox", () -> {
+            WebDriverManager.firefoxdriver().setup();
+            return new FirefoxDriver();
+        });
     }
 
-    // Private constructor for setting up WebDriver
-    private MyDriver(BrowserType browserType) {
-        this.driver = browserType.createDriver();
-        driver.manage().window().maximize(); // Maximize the browser window
+    private MyDriver(String browser) {
+        try {
+            logger.info("Initializing WebDriver for browser: {}", browser);
+            Supplier<WebDriver> driverSupplier = driverMap.get(browser.toLowerCase());
+            if (driverSupplier != null) {
+                this.driver = driverSupplier.get();
+            } else {
+                throw new IllegalArgumentException("Invalid browser name: " + browser);
+            }
+        } catch (Exception e) {
+            logger.error("Failed to initialize WebDriver for browser: {}", browser, e);
+            throw new RuntimeException("Failed to initialize WebDriver for browser: " + browser, e);
+        }
+
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+
+        // Add shutdown hook to ensure driver is closed
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            if (driver != null) {
+                logger.info("Shutting down WebDriver");
+                driver.quit();
+            }
+        }));
     }
 
-    // Synchronized method to get the singleton instance of MyDriver
-    public static synchronized MyDriver getInstance(String browser) {
+    public static MyDriver getInstance(String browser) {
         if (instance == null) {
-            instance = new MyDriver(BrowserType.valueOf(browser.toUpperCase()));
+            synchronized (MyDriver.class) {
+                if (instance == null) {
+                    logger.info("Creating new MyDriver instance");
+                    instance = new MyDriver(browser);
+                }
+            }
         }
         return instance;
     }
 
-    // Method to get the WebDriver instance
     public WebDriver getDriver() {
         return driver;
     }
 
-    // Method to quit the WebDriver and reset the singleton instance
+    public WebDriverWait getWait() {
+        return wait;
+    }
+
     public void quit() {
         if (driver != null) {
-            driver.quit(); // Close the browser
-            instance = null; // Reset the singleton instance
+            logger.info("Quitting WebDriver instance");
+            driver.quit();
+            instance = null;
         }
+    }
+
+    public void restartDriver(String browser) {
+        logger.info("Restarting WebDriver for browser: {}", browser);
+        if (driver != null) {
+            driver.quit();
+        }
+        instance = new MyDriver(browser);
     }
 }
